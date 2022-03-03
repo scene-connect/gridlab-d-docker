@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  gridlabd:
+    build: ../
+    depends_on:
+      - helics
+      - mysql
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: gridlabd test.glm
+
+  helics:
+    image: helics/helics:v2.7.1
+    hostname: helics
+    command:
+      helics_broker --federates=1 --name=test --ipv4 --localport=23456
+
+  mysql:
+    image: mysql:latest
+    hostname: mysql
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: gld_test

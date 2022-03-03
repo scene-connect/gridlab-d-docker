@@ -5,35 +5,33 @@ clock {
     stoptime '2019-01-03 05:00:00';
 }
 //Import modules
-module residential  {
+module residential {
     implicit_enduses NONE; //No enduse lights in house model - occupancy for houses added via ALPG player input.
 }
 module connection;
 module mysql {
     hostname "mysql";
     username "root";
-    password "foo";
-    schema "foo"; // this will be the database name
+    password "test";
+    schema "gld_test";
     port 3306;
-    // options OVERWRITE; //Until now the SQL db has not been overwriting data, simply appending to the end, but this option doesn't work as expected. 
-    //clientflags COMPRESS|FOUND_ROWS|IGNORE_SIGPIPE|INTERACTIVE|LOCAL_FILES|MULTI_RESULTS|MULTI_STATEMENTS|NO_SCHEMA|ODBC|SSL|REMEMBER_OPTIONS;
-    
 }
 // Objects
 object mysql.database {
     name "case_gld_test";
     options SHOWQUERY;
 }
-object house { // simple house - it will just model some reasonable parameters for a house over time. Think it adds a heating system too.
+// Simple house - it will just model some reasonable parameters for a house over time. Think it adds a heating system too.
+object house {
   name test_house;
 }
-object mysql.recorder { //Make explicit that the recorder is going to SQL database
+//Make explicit that the recorder is going to SQL database
+object mysql.recorder {
     name test_house_recorder;
     parent test_house;
     file house_data; // actually the table name
-    interval 1800; // in second 
+    interval 1800; // in second
     property air_temperature;
     mode w;
     recorder_name test_house; //will be linked to the data within the sql table
 }
-

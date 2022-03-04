@@ -1,5 +1,6 @@
 .git
+.github
 Dockerfile
-docker-compose.yml
+test/docker-compose.yml
 LICENSE
 README.md

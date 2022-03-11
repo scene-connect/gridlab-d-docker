@@ -1,0 +1,6 @@
+.git
+.github
+Dockerfile
+test/docker-compose.yml
+LICENSE
+README.md

@@ -1,0 +1,15 @@
+{
+    "name": "gld_docker_test_federate",
+    "period": 1.0,
+    "broker_address": "helics",
+    "broker_port": 23456,
+    "endpoints": [
+      {
+        "global": true,
+        "name": "house",
+        "type": "complex",
+        "unit": "VA",
+        "info": "{\"object\" : \"house\", \"property\" : \"air_temperature\"}"
+      }
+    ]
+}

@@ -1,0 +1,37 @@
+// Step 1 - Clock
+clock {
+    timezone GMT0;
+    starttime '2019-01-03 00:00:00';
+    stoptime '2019-01-03 05:00:00';
+}
+//Import modules
+module residential {
+    implicit_enduses NONE; //No enduse lights in house model - occupancy for houses added via ALPG player input.
+}
+module connection;
+module mysql {
+    hostname "mysql";
+    username "root";
+    password "test";
+    schema "gld_test";
+    port 3306;
+}
+// Objects
+object mysql.database {
+    name "case_gld_test";
+    options SHOWQUERY;
+}
+// Simple house - it will just model some reasonable parameters for a house over time. Think it adds a heating system too.
+object house {
+  name test_house;
+}
+//Make explicit that the recorder is going to SQL database
+object mysql.recorder {
+    name test_house_recorder;
+    parent test_house;
+    file house_data; // actually the table name
+    interval 1800; // in second
+    property air_temperature;
+    mode w;
+    recorder_name test_house; //will be linked to the data within the sql table
+}
